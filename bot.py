@@ -56,7 +56,7 @@ def photo_f(update: Update, context: CallbackContext):
     string_img = base64.b64encode(cv2.imencode('.jpg', img)[1]).decode()
     req = {'img':string_img}
     context.bot.send_message(chat_id=update.effective_chat.id, text="I've got a photo from you. Please whait for a while. This bot is not optimised for inference speed.")
-    r = requests.post('http://0.0.0.0:8003', json=req)
+    r = requests.post('http://computer-vision-api.com/api/v1/pose_estimation', json=req)
     txt = json.loads(r.text)
     img = base64.b64decode(txt['img'].encode('utf-8'))
     log_photo(img, args.log_dir)
